@@ -17,8 +17,8 @@ namespace HomeExercises
 
             expectedTsar.ShouldBeEquivalentTo(actualTsar,
                 options => options
-                .Excluding(su => su.Id)
-                .Excluding(su => su.Parent.Id));
+                .Excluding(person => person.Id)
+                .Excluding(person => person.Parent.Id));
         }
 
         [Test]
@@ -41,11 +41,11 @@ namespace HomeExercises
             if (actual == expected) return true;
             if (actual == null || expected == null) return false;
             return
-            actual.Name == expected.Name
-            && actual.Age == expected.Age
-            && actual.Height == expected.Height
-            && actual.Weight == expected.Weight
-            && AreEqual(actual.Parent, expected.Parent);
+                actual.Name == expected.Name
+                && actual.Age == expected.Age
+                && actual.Height == expected.Height
+                && actual.Weight == expected.Weight
+                && AreEqual(actual.Parent, expected.Parent);
         }
     }
 

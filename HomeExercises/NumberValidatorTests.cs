@@ -9,25 +9,6 @@ namespace HomeExercises
     public class NumberValidatorTests
     {
         [Test]
-        public void Test()
-        {
-            Assert.Throws<ArgumentException>(() => new NumberValidator(-1, 2, true));
-            Assert.DoesNotThrow(() => new NumberValidator(1, 0, true));
-
-            Assert.IsTrue(new NumberValidator(17, 2, true).IsValidNumber("0.0"));
-            Assert.IsTrue(new NumberValidator(17, 2, true).IsValidNumber("0"));
-            Assert.IsFalse(new NumberValidator(3, 2, true).IsValidNumber("00.00"));
-            Assert.IsFalse(new NumberValidator(3, 2, true).IsValidNumber("-0.00"));
-            Assert.IsFalse(new NumberValidator(3, 2, true).IsValidNumber("+0.00"));
-            Assert.IsTrue(new NumberValidator(4, 2, true).IsValidNumber("+1.23"));
-            Assert.IsFalse(new NumberValidator(3, 2, true).IsValidNumber("+1.23"));
-            Assert.IsFalse(new NumberValidator(17, 2, true).IsValidNumber("0.000"));
-            Assert.IsFalse(new NumberValidator(3, 2, true).IsValidNumber("-1.23"));
-            Assert.IsFalse(new NumberValidator(3, 2, true).IsValidNumber("a.sd"));
-        }
-
-
-        [Test]
         public void NumberValidator_NegativePrecision_ThrowArgumentException()
         {
             Assert.Throws<ArgumentException>(() => new NumberValidator(-1, 2));
@@ -50,9 +31,9 @@ namespace HomeExercises
         {
             Assert.Throws<ArgumentException>(() => new NumberValidator(1, 2));
         }
-
+        
         [Test]
-        public void NumberValidator_ScaleEqualThanPrecision_ThrowArgumentException()
+        public void NumberValidator_ScaleEqualToPrecision_ThrowArgumentException()
         {
             Assert.Throws<ArgumentException>(() => new NumberValidator(2, 2));
         }
@@ -89,7 +70,7 @@ namespace HomeExercises
         
         public bool ValidateNumber(string number)
         {
-            var bigPrecisionAndScale = new NumberValidator(100, 99);
+            var bigPrecisionAndScale = new NumberValidator(precision : 100, scale : 99);
             return bigPrecisionAndScale.IsValidNumber(number);
         }
 
@@ -102,7 +83,7 @@ namespace HomeExercises
         [TestCase("-1.0", TestName = "Negative fraction at only-positive mode", ExpectedResult = false)]
         public bool ValidateNumberByLength(string number)
         {
-            return new NumberValidator(4, 2, true).IsValidNumber(number);
+            return new NumberValidator(precision : 4, scale : 2, onlyPositive : true).IsValidNumber(number);
         }
     }
 
