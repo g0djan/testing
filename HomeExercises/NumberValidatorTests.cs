@@ -38,12 +38,6 @@ namespace HomeExercises
             Assert.Throws<ArgumentException>(() => new NumberValidator(2, 2));
         }
 
-        [Test]
-        public void NumberValidator_NonNegativeScaleLessThanPositivePrecision_DoesNotThrowException()
-        {
-            Assert.DoesNotThrow(() => new NumberValidator(1));
-        }
-
         [TestCase(null, ExpectedResult = false)]
         [TestCase("", ExpectedResult = false)]
         [TestCase("1.", ExpectedResult = false)]
