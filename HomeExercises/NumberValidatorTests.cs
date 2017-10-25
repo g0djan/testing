@@ -8,34 +8,14 @@ namespace HomeExercises
     [TestFixture]
     public class NumberValidatorTests
     {
-        [Test]
-        public void NumberValidator_NegativePrecision_ThrowArgumentException()
+        [TestCase(2, 2, TestName = "ScaleEqualToPrecision")]
+        [TestCase(1, 2, TestName = "ScaleGreaterThanPrecision")]
+        [TestCase(1, -1, TestName = "NegativeScale")]
+        [TestCase(0, 2, TestName = "ZeroPrecision")]
+        [TestCase(-1, 2, TestName = "NegativePrecision")]
+        public void NumberValidatorTest_ThrowArgumentException_When(int precision, int scale)
         {
-            Assert.Throws<ArgumentException>(() => new NumberValidator(-1, 2));
-        }
-
-        [Test]
-        public void NumberValidator_ZeroPrecision_ThrowArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() => new NumberValidator(0, 2));
-        }
-
-        [Test]
-        public void NumberValidator_NegativeScale_ThrowArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() => new NumberValidator(1, -1));
-        }
-
-        [Test]
-        public void NumberValidator_ScaleGreaterThanPrecision_ThrowArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() => new NumberValidator(1, 2));
-        }
-        
-        [Test]
-        public void NumberValidator_ScaleEqualToPrecision_ThrowArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() => new NumberValidator(2, 2));
+            Assert.Throws<ArgumentException>(() => new NumberValidator(precision, scale));
         }
 
         [TestCase(null, ExpectedResult = false)]
